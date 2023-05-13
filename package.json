@@ -45,13 +45,11 @@
         "size": "npx hardhat size-contracts",
         "test": "npx hardhat test --network hardhat",
         "typechain": "npx hardhat typechain",
-        "update": "forge update && npm upgrade",
+        "update": "forge update && yarn upgrade",
         "ut": "forge test"
     },
     "devDependencies": {
         "@float-capital/ds-test": "^0.0.1",
-        "@matterlabs/hardhat-zksync-deploy": "^0.5.2",
-        "@matterlabs/hardhat-zksync-solc": "^0.3.11-beta.1",
         "@nomiclabs/hardhat-ethers": "^2.2.1",
         "@nomiclabs/hardhat-etherscan": "^3.1.4",
         "@nomiclabs/hardhat-solhint": "^3.0.0",
@@ -65,6 +63,7 @@
         "@types/mocha": "^10.0.1",
         "@types/node": "^18.11.18",
         "@types/readline-sync": "^1.4.4",
+        "@types/sinon-chai": "^3.2.9",
         "@typescript-eslint/eslint-plugin": "^5.48.0",
         "@typescript-eslint/parser": "^5.48.0",
         "chai": "^4.3.7",

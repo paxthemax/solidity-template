@@ -1,5 +1,3 @@
-import "@matterlabs/hardhat-zksync-deploy";
-import "@matterlabs/hardhat-zksync-solc";
 import "@nomiclabs/hardhat-ethers";
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-solhint";
@@ -27,9 +25,6 @@ export const VERBOSE: boolean = process.env.VERBOSE == `TRUE` ? true : false;
 // Enable EIP-1559 gas configuration for transactions and gas reporting
 export const GAS_MODE: boolean = process.env.GAS_MODE == `TRUE` ? true : false;
 
-// Enable deployment to zkSync networks
-export const ZK_EVM: boolean = process.env.ZK_EVM == `TRUE` ? true : false;
-
 // List of supported networks
 export const chainIds = {
     arbitrum: 42161,
@@ -44,8 +39,6 @@ export const chainIds = {
     "optimism-goerli": 420,
     "polygon-mainnet": 137,
     "polygon-mumbai": 80001,
-    "zksync-goerli": 280,
-    "zksync-mainnet": 324,
 };
 
 function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
@@ -78,12 +71,6 @@ function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
         case `polygon-mumbai`:
             jsonRpcUrl = `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`;
             break;
-        case `zksync-goerli`:
-            jsonRpcUrl = `https://zksync2-testnet.zksync.dev`;
-            break;
-        case `zksync-mainnet`:
-            jsonRpcUrl = `https://zksync2-mainnet.zksync.io`;
-            break;
         default:
             jsonRpcUrl = `https://eth-${chain}.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`;
     }
@@ -94,7 +81,6 @@ function getChainConfig(chain: keyof typeof chainIds): NetworkUserConfig {
         },
         chainId: chainIds[chain],
         url: jsonRpcUrl,
-        zksync: ZK_EVM,
     };
 }
 
@@ -127,10 +113,6 @@ export function explorerUrl(chainId: number | undefined, type: UrlType, param: s
             return `https://polygonscan.com/${type}/${param}`;
         case chainIds[`polygon-mumbai`]:
             return `https://mumbai.polygonscan.com/${type}/${param}`;
-        case chainIds[`zksync-goerli`]:
-            return `https://goerli.explorer.zksync.io/${type}/${param}`;
-        case chainIds[`zksync-mainnet`]:
-            return `https://explorer.zksync.io/${type}/${param}`;
         default:
             return `https://etherscan.io/${type}/${param}`;
     }
@@ -192,7 +174,6 @@ const config: HardhatUserConfig = {
             },
             allowUnlimitedContractSize: true,
             chainId: chainIds.hardhat,
-            zksync: ZK_EVM,
         },
         arbitrum: getChainConfig(`arbitrum`),
         "arbitrum-goerli": getChainConfig(`arbitrum-goerli`),
@@ -205,8 +186,6 @@ const config: HardhatUserConfig = {
         "optimism-goerli": getChainConfig(`optimism-goerli`),
         "polygon-mainnet": getChainConfig(`polygon-mainnet`),
         "polygon-mumbai": getChainConfig(`polygon-mumbai`),
-        "zksync-goerli": getChainConfig(`zksync-goerli`),
-        "zksync-mainnet": getChainConfig(`zksync-mainnet`),
     },
     gasReporter: {
         currency: `USD`,
@@ -248,16 +227,6 @@ const config: HardhatUserConfig = {
         alphaSort: true,
         runOnCompile: false,
         disambiguatePaths: false,
-    },
-    zksolc: {
-        version: `1.2.1`,
-        compilerSource: `binary`,
-        settings: {
-            experimental: {
-                dockerImage: `matterlabs/zksolc`,
-                tag: `v1.2.1`,
-            },
-        },
     },
 };
 
