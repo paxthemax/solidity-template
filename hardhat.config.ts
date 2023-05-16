@@ -207,8 +207,6 @@ const config: HardhatUserConfig = {
             "optimism-goerli": process.env.OPTIMISM_API_KEY || ``,
             "polygon-mainnet": process.env.POLYGONSCAN_API_KEY || ``,
             "polygon-mumbai": process.env.POLYGONSCAN_API_KEY || ``,
-            "zksync-goerli": process.env.ZKSYNC_API_KEY || ``,
-            "zksync-mainnet": process.env.ZKSYNC_API_KEY || ``,
         },
     },
     typechain: {
