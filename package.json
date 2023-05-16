@@ -1,6 +1,6 @@
 {
-    "name": "@mattstam/solidity-template",
-    "version": "0.0.0",
+    "name": "@paxthemax/solidity-template",
+    "version": "1.0.0",
     "description": "A modern Solidity template utilizing Foundry and Hardhat",
     "type": "commonjs",
     "main": "build/scripts/index.js",
